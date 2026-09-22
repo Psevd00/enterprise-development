@@ -13,7 +13,7 @@ public class SalonTests : IClassFixture<BeautySalonFixture>
     }
 
     /// <summary>
-    /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет.
+    /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет
     /// </summary>
     [Fact]
     public void GetMastesWithExperienceAtLeast5Years_ReturnCorrectMasters()
@@ -27,7 +27,7 @@ public class SalonTests : IClassFixture<BeautySalonFixture>
     }
 
     /// <summary>
-    /// Вывести информацию о всех окошках 💅 выбранного мастера.
+    /// Вывести информацию о всех окошках 💅 выбранного мастера
     /// </summary>
     [Fact]
     public void GetFreeTimeSlotsForMasterOnDate_ReturnsWindows()
@@ -64,7 +64,7 @@ public class SalonTests : IClassFixture<BeautySalonFixture>
     }
 
     /// <summary>
-    /// Вывести топ 5 наиболее популярных услуг.
+    /// Вывести топ 5 наиболее популярных услуг
     /// </summary>
     [Fact]
     public void GetTop5PopularServices_ReturnsTop5Services()
@@ -85,7 +85,7 @@ public class SalonTests : IClassFixture<BeautySalonFixture>
     }
 
     /// <summary>
-    /// Вывести информацию о количестве повторных записей клиентов за последний месяц.
+    /// Вывести информацию о количестве повторных записей клиентов за последний месяц
     /// </summary>
     [Fact]
     public void GetClientsWithRepeatVisitsInMonth_ReturnsClients()
@@ -105,7 +105,7 @@ public class SalonTests : IClassFixture<BeautySalonFixture>
     }
 
     /// <summary>
-    /// Вывести информацию о клиентах, записанных к нескольким мастерам, упорядочить по дате рождения.
+    /// Вывести информацию о клиентах, записанных к нескольким мастерам, упорядочить по дате рождения
     /// </summary>
     [Fact]
     public void GetClientsWhoVisitedMultipleMasters_ReturnsClients()
