@@ -4,14 +4,14 @@ using BeautySalon.Domain;
 
 public class BeautySalonFixture 
 { 
-    public List<Client> Client { get; }
-    public List<Master> Master { get; }
-    public List<Service> Service { get; }
-    public List<Appointment> Appointment { get; }
+    public List<Client> Clients { get; }
+    public List<Master> Masters { get; }
+    public List<Service> Services { get; }
+    public List<Appointment> Appointments { get; }
 
     public BeautySalonFixture() 
     {
-        Client = [
+        Clients = [
             new Client 
             { 
                 FullName = "Иванова Анна Ивановна",
@@ -84,7 +84,7 @@ public class BeautySalonFixture
             }
         ];
 
-        Master = [
+        Masters = [
             new Master
             {
                 FullName = "Петрова Анна Ивановна",
@@ -167,7 +167,7 @@ public class BeautySalonFixture
             }
         ];
 
-        Service = [
+        Services = [
             new Service
             { 
                 Name = "Стрижка",
@@ -239,75 +239,75 @@ public class BeautySalonFixture
             }
         ];
 
-        Appointment = [
+        Appointments = [
             new Appointment
             {
-                Client = Client[0],
-                Master = Master[0],
-                Service = Service[0],
+                Client = Clients[0],
+                Master = Masters[0],
+                Service = Services[0],
                 DateTime = new DateTime(2024, 6, 1, 10, 0, 0)
             },
             new Appointment
             {
-                Client = Client[0],
-                Master = Master[1],
-                Service = Service[1],
+                Client = Clients[0],
+                Master = Masters[1],
+                Service = Services[1],
                 DateTime = new DateTime(2024, 6, 2, 11, 0, 0)
             },
             new Appointment
             {
-                Client = Client[2],
-                Master = Master[2], 
-                Service = Service[2], 
+                Client = Clients[2],
+                Master = Masters[2], 
+                Service = Services[2], 
                 DateTime = new DateTime(2024, 6, 3, 12, 0, 0)
             },
             new Appointment 
             {
-                Client = Client[3],
-                Master = Master[3],
-                Service = Service[3], 
+                Client = Clients[3],
+                Master = Masters[3],
+                Service = Services[3], 
                 DateTime = new DateTime(2024, 6, 4, 13, 0, 0)
             },
             new Appointment
             {
-                Client = Client[4],
-                Master = Master[4],
-                Service = Service[4],
+                Client = Clients[4],
+                Master = Masters[4],
+                Service = Services[4],
                 DateTime = new DateTime(2024, 6, 5, 14, 0, 0)
             },
             new Appointment
             {
-                Client = Client[5],
-                Master = Master[5], 
-                Service = Service[5],
+                Client = Clients[5],
+                Master = Masters[5], 
+                Service = Services[5],
                 DateTime = new DateTime(2024, 6, 6, 15, 0, 0)
             },
             new Appointment
             {
-                Client = Client[6],
-                Master = Master[6],
-                Service = Service[6],
+                Client = Clients[6],
+                Master = Masters[6],
+                Service = Services[6],
                 DateTime = new DateTime(2024, 6, 7, 16, 0, 0)
             },
             new Appointment
             {
-                Client = Client[7],
-                Master = Master[7],
-                Service = Service[7],
+                Client = Clients[7],
+                Master = Masters[7],
+                Service = Services[7],
                 DateTime = new DateTime(2024, 6, 8, 17, 0, 0)
             },
             new Appointment 
             { 
-                Client = Client[8],
-                Master = Master[8],
-                Service = Service[8],
+                Client = Clients[8],
+                Master = Masters[8],
+                Service = Services[8],
                 DateTime = new DateTime(2024, 6, 9, 18, 0, 0)
             },
             new Appointment
             {
-                Client = Client[9],
-                Master = Master[9], 
-                Service = Service[9],
+                Client = Clients[9],
+                Master = Masters[9], 
+                Service = Services[9],
                 DateTime = new DateTime(2024, 6,10 ,19 ,00 ,00 ) 
             }
         ];
