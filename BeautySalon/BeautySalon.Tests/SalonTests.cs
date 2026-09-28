@@ -1,7 +1,7 @@
+using BeautySalon.Domain;
+
 namespace BeautySalon.Tests;
 
-using BeautySalon.Domain; 
-using Xunit;
 
 public class SalonTests : IClassFixture<BeautySalonFixture>
 {
