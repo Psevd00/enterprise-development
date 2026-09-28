@@ -2,13 +2,15 @@ namespace BeautySalon.Tests;
 
 using BeautySalon.Domain;
 
-public class BeautySalonFixture { 
+public class BeautySalonFixture 
+{ 
     public List<Client> Client { get; }
     public List<Master> Master { get; }
     public List<Service> Service { get; }
     public List<Appointment> Appointment { get; }
 
-    public BeautySalonFixture() {
+    public BeautySalonFixture() 
+    {
         Client = [
             new Client { FullName = "Иванова Анна Ивановна", Gender = Gender.Female, BirthDate = new DateOnly(1991, 1, 1), PhoneNumber = "+79001234561" },
             new Client { FullName = "Иванова Инна Ивановна", Gender = Gender.Female, BirthDate = new DateOnly(1992, 2, 2), PhoneNumber = "+79001234562" },

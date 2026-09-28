@@ -1,6 +1,7 @@
 namespace BeautySalon.Domain;
 
-public enum Specialization{ 
+public enum Specialization
+{ 
     Hairdresser = 1,
     NailArtist = 2,
     MakeupArtist = 3,
