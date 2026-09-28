@@ -85,8 +85,8 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     [Fact]
     public void GetClientsWithRepeatVisitsInMonth_ReturnsClients()
     {
-        int targetYear = 2024;
-        int targetMonth = 6;
+        const int targetYear = 2024;
+        const int targetMonth = 6;
 
         var repeatClients = _fixture.Appointment
             .Where(a => a.DateTime.Year == targetYear && a.DateTime.Month == targetMonth)
