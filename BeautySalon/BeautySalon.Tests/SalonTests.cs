@@ -3,14 +3,9 @@ using BeautySalon.Domain;
 namespace BeautySalon.Tests;
 
 
-public class SalonTests : IClassFixture<BeautySalonFixture>
+public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonFixture>
 {
-    private readonly BeautySalonFixture _fixture;
-
-    public SalonTests(BeautySalonFixture fixture)
-    {
-        _fixture = fixture;
-    }
+   
 
     /// <summary>
     /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет
