@@ -45,7 +45,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     public void GetFreeTimeSlotsForMasterOnDate_AppointmentsExist_ReturnsFreeTimeSlots()
     {
         // Arrange
-        var targetMaster = fixture.Master[0];
+        var targetMaster = fixture.Masters[0];
         var targetDate = new DateTime(2024, 6, 1);
 
         var workStart = new DateTime(2024, 6, 1, 9, 0, 0);
@@ -57,7 +57,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
         (new DateTime(2024, 6, 1, 10, 30, 0), new DateTime(2024, 6, 1, 18, 0, 0))
     };
 
-        var busySlots = fixture.Appointment
+        var busySlots = fixture.Appointments
             .Where(a => a.Master == targetMaster && a.DateTime.Date == targetDate.Date)
             .OrderBy(a => a.DateTime)
             .Select(a => new { Start = a.DateTime, End = a.DateTime + a.Service.Duration })
@@ -102,7 +102,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     };
 
         // Act
-        var topServices = fixture.Appointment
+        var topServices = fixture.Appointments
             .GroupBy(a => a.Service.Name)
             .Select(g => new { ServiceName = g.Key, Count = g.Count() })
             .OrderByDescending(s => s.Count)
@@ -126,7 +126,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
         const string expectedFullName = "Иванова Анна Ивановна";
 
         // Act
-        var repeatClients = fixture.Appointment
+        var repeatClients = fixture.Appointments
             .Where(a => a.DateTime.Year == targetYear && a.DateTime.Month == targetMonth)
             .GroupBy(a => a.Client)
             .Where(g => g.Count() > 1)
@@ -148,7 +148,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
         const string expectedFullName = "Иванова Анна Ивановна";
 
         // Act
-        var clients = fixture.Appointment
+        var clients = fixture.Appointments
             .GroupBy(a => a.Client)
             .Where(g => g.Select(a => a.Master).Distinct().Count() >= 2)
             .Select(g => g.Key)
