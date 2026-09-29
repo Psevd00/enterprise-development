@@ -279,14 +279,14 @@ public class BeautySalonFixture
             {
                 Client = Clients[5],
                 Master = Masters[5], 
-                Service = Services[5],
+                Service = Services[0],
                 DateTime = new DateTime(2024, 6, 6, 15, 0, 0)
             },
             new Appointment
             {
                 Client = Clients[6],
                 Master = Masters[6],
-                Service = Services[6],
+                Service = Services[4],
                 DateTime = new DateTime(2024, 6, 7, 16, 0, 0)
             },
             new Appointment
