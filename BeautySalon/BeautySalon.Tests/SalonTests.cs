@@ -11,7 +11,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     /// Вывести информацию о всех мастерах, стаж работы которых не менее 5 лет
     /// </summary>
     [Fact]
-    public void GetMastesWithExperienceAtLeast5Years_ReturnCorrectMasters()
+    public void GetExperiencedMasters_ExperienceAtLeast5Years_ReturnsMasters()
     {
         var masters = _fixture.Master
             .Where(m => m.WorkExperience >= 5)
@@ -25,7 +25,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     /// Вывести информацию о всех окошках 💅 выбранного мастера
     /// </summary>
     [Fact]
-    public void GetFreeTimeSlotsForMasterOnDate_ReturnsWindows()
+    public void GetFreeTimeSlotsForMasterOnDate_AppointmentsExist_ReturnsFreeTimeSlots()
     {
         var targetMaster = _fixture.Master[0];
         var targetDate = new DateTime(2024, 6, 1);
@@ -62,7 +62,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     /// Вывести топ 5 наиболее популярных услуг
     /// </summary>
     [Fact]
-    public void GetTop5PopularServices_ReturnsTop5Services()
+    public void GetMostPopularServices_OrderedByAppointmentCount_ReturnsTop5()
     {
         var topServices = _fixture.Appointment
             .GroupBy(a => a.Service.Name)
@@ -83,7 +83,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     /// Вывести информацию о количестве повторных записей клиентов за последний месяц
     /// </summary>
     [Fact]
-    public void GetClientsWithRepeatVisitsInMonth_ReturnsClients()
+    public void GetClientsWithRepeatVisitsInMonth_HaveMultipleAppointments_ReturnsClients()
     {
         const int targetYear = 2024;
         const int targetMonth = 6;
@@ -103,7 +103,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     /// Вывести информацию о клиентах, записанных к нескольким мастерам, упорядочить по дате рождения
     /// </summary>
     [Fact]
-    public void GetClientsWhoVisitedMultipleMasters_ReturnsClients()
+    public void GetClientsWhoVisitedMultipleMasters_OrderedByBirthDate_ReturnsClients()
     {
         var clients = _fixture.Appointment
             .GroupBy(a => a.Client)
