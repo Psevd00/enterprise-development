@@ -85,7 +85,8 @@ public class BeautySalonFixture
             }
         ];
 
-        Masters = [
+        Masters = 
+        [
             new Master
             {
                 FullName = "Петрова Анна Ивановна",
@@ -168,7 +169,8 @@ public class BeautySalonFixture
             }
         ];
 
-        Services = [
+        Services = 
+        [
             new Service
             { 
                 Name = "Стрижка",
@@ -240,7 +242,8 @@ public class BeautySalonFixture
             }
         ];
 
-        Appointments = [
+        Appointments = 
+        [
             new Appointment
             {
                 Client = Clients[0],
