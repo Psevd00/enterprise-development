@@ -50,10 +50,10 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
         var workEnd = new DateTime(2024, 6, 1, 18, 0, 0);
 
         var expectedFreeSlots = new List<(DateTime Start, DateTime End)>
-    {
-        (new DateTime(2024, 6, 1, 9, 0, 0),  new DateTime(2024, 6, 1, 10, 0, 0)),
-        (new DateTime(2024, 6, 1, 10, 30, 0), new DateTime(2024, 6, 1, 18, 0, 0))
-    };
+        {
+            (new DateTime(2024, 6, 1, 9, 0, 0),  new DateTime(2024, 6, 1, 10, 0, 0)),
+            (new DateTime(2024, 6, 1, 10, 30, 0), new DateTime(2024, 6, 1, 18, 0, 0))
+        };
 
         var busySlots = fixture.Appointments
             .Where(a => a.Master == targetMaster && a.DateTime.Date == targetDate.Date)
