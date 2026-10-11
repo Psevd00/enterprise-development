@@ -87,12 +87,12 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
         // Arrange
         var expectedTopServices = new[]
         {
-        (Name: "Стрижка", Count: 2),
-        (Name: "Маникюр", Count: 2),
-        (Name: "Макияж",  Count: 2),
-        (Name: "Брови",   Count: 2),
-        (Name: "Ресницы", Count: 2)
-    };
+            (Name: "Стрижка", Count: 2),
+            (Name: "Маникюр", Count: 2),
+            (Name: "Макияж",  Count: 2),
+            (Name: "Брови",   Count: 2),
+            (Name: "Ресницы", Count: 2)
+        };
 
         // Act
         var topServices = fixture.Appointments
