@@ -11,7 +11,6 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
     {
         // Arrange
         var expectedFullNames = new[]
-
         {
             fixture.Masters[0].FullName,
             fixture.Masters[4].FullName,
