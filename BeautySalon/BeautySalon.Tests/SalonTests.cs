@@ -1,5 +1,3 @@
-using BeautySalon.Domain;
-
 namespace BeautySalon.Tests;
 
 
