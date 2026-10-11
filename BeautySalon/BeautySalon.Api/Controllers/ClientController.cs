@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ClientsController(BeautySalonDataStore dataStore) : ControllerBase
+public class ClientController(BeautySalonDataStore dataStore) : ControllerBase
 {
+    // GET: api/client
     [HttpGet]
     public ActionResult<IEnumerable<Client>> GetAll()
     {
@@ -29,7 +30,7 @@ public class ClientsController(BeautySalonDataStore dataStore) : ControllerBase
     {
         if (newClient == null)
         {
-            return BadRequest("Некоррктные данные клиента.");
+            return BadRequest("Некорректные данные клиента.");
         }
 
         dataStore.Clients.Add(newClient);
