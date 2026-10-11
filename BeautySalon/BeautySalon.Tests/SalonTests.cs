@@ -27,11 +27,7 @@ public class SalonTests(BeautySalonFixture fixture) : IClassFixture<BeautySalonF
             .Where(m => m.WorkExperience >= 5)
             .Select(m => m.FullName)
             .ToList();
-        foreach (var name in result)
-        {
-            Console.WriteLine(name);
-        }
-
+       
         // Assert
         Assert.Equal(expectedFullNames, result);
     }
