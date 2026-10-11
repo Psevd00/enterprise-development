@@ -11,7 +11,8 @@ public class BeautySalonFixture
 
     public BeautySalonFixture() 
     {
-        Clients = [
+        Clients = 
+        [
             new Client 
             { 
                 FullName = "Иванова Анна Ивановна",
