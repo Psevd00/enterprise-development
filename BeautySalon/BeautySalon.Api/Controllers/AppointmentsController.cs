@@ -1,50 +1,62 @@
 namespace BeautySalon.Api.Controllers;
 
 using BeautySalon.Domain;
+using BeautySalon.Infrastructure.InMemory;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AppointmentsController(BeautySalonDataStore dataStore) : ControllerBase
+public class AppointmentsController(AppointmentRepository appointmentRepository) : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<Appointment>> GetAll()
-    {
-        return Ok(dataStore.Appointments);
-    }
+    public ActionResult<IEnumerable<Appointment>> GetAll() =>
+        Ok(appointmentRepository.GetAll());
 
     [HttpGet("{id:int}")]
     public ActionResult<Appointment> GetById(int id)
     {
-        if (id < 0 || id >= dataStore.Appointments.Count)
+        var appointment = appointmentRepository.GetById(id);
+        if (appointment is null)
         {
             return NotFound(new { message = "Запись не найдена" });
         }
-
-        return Ok(dataStore.Appointments[id]);
+        return Ok(appointment);
     }
 
     [HttpPost]
-    public ActionResult<Appointment> Create([FromBody] Appointment newAppointment)
+    public ActionResult<Appointment> Create([FromBody] Appointment appointment)
     {
-        if (newAppointment == null)
+        if (appointment is null)
         {
             return BadRequest("Некорректные данные записи.");
         }
 
-        dataStore.Appointments.Add(newAppointment);
-        return CreatedAtAction(nameof(GetById), new { id = dataStore.Appointments.Count - 1 }, newAppointment);
+        var created = appointmentRepository.Add(appointment);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPut("{id:int}")]
+    public IActionResult Update(int id, [FromBody] Appointment appointment)
+    {
+        try
+        {
+            appointmentRepository.Update(appointment, id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Запись не найдена" });
+        }
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        if (id < 0 || id >= dataStore.Appointments.Count)
+        var success = appointmentRepository.Delete(id);
+        if (!success)
         {
             return NotFound(new { message = "Запись не найдена" });
         }
-
-        dataStore.Appointments.RemoveAt(id);
         return NoContent();
     }
 }

@@ -1,50 +1,62 @@
 namespace BeautySalon.Api.Controllers;
 
 using BeautySalon.Domain;
+using BeautySalon.Infrastructure.InMemory;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ServicesController(BeautySalonDataStore dataStore) : ControllerBase
+public class ServicesController(ServiceRepository serviceRepository) : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<Service>> GetAll()
-    {
-        return Ok(dataStore.Services);
-    }
+    public ActionResult<IEnumerable<Service>> GetAll() =>
+        Ok(serviceRepository.GetAll());
 
     [HttpGet("{id:int}")]
     public ActionResult<Service> GetById(int id)
     {
-        if (id < 0 || id >= dataStore.Services.Count)
+        var service = serviceRepository.GetById(id);
+        if (service is null)
         {
             return NotFound(new { message = "Услуга не найдена" });
         }
-
-        return Ok(dataStore.Services[id]);
+        return Ok(service);
     }
 
     [HttpPost]
-    public ActionResult<Service> Create([FromBody] Service newService)
+    public ActionResult<Service> Create([FromBody] Service service)
     {
-        if (newService == null)
+        if (service is null)
         {
             return BadRequest("Некорректные данные услуги.");
         }
 
-        dataStore.Services.Add(newService);
-        return CreatedAtAction(nameof(GetById), new { id = dataStore.Services.Count - 1 }, newService);
+        var created = serviceRepository.Add(service);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    [HttpPut("{id:int}")]
+    public IActionResult Update(int id, [FromBody] Service service)
+    {
+        try
+        {
+            serviceRepository.Update(service, id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException)
+        {
+            return NotFound(new { message = "Услуга не найдена" });
+        }
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        if (id < 0 || id >= dataStore.Services.Count)
+        var success = serviceRepository.Delete(id);
+        if (!success)
         {
             return NotFound(new { message = "Услуга не найдена" });
         }
-
-        dataStore.Services.RemoveAt(id);
         return NoContent();
     }
 }
