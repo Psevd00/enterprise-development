@@ -1,4 +1,4 @@
-namespace BeautySalon.Api;
+namespace BeautySalon.Infrastructure.InMemory;
 
 using BeautySalon.Domain;
 
