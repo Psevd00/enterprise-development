@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="BeautySalon.Domain/BeautySalon.Domain.csproj" />
+  <Project Path="BeautySalon.Infrastructure.InMemory/BeautySalon.Infrastructure.InMemory.csproj" />
   <Project Path="BeautySalon.Tests/BeautySalon.Tests.csproj" />
 </Solution>
