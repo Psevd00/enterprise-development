@@ -1,8 +1,8 @@
-namespace BeautySalon.Api.Controllers;
-
 using BeautySalon.Domain;
 using BeautySalon.Infrastructure.InMemory;
 using Microsoft.AspNetCore.Mvc;
+
+namespace BeautySalon.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,9 +1,15 @@
-namespace BeautySalon.Infrastructure.InMemory;
-
 using BeautySalon.Domain;
 
+namespace BeautySalon.Infrastructure.InMemory;
+
+/// <summary>
+/// Компонент хранения исходных тестовых данных салона красоты в памяти.
+/// </summary>
 public class BeautySalonDataStore
 {
+    /// <summary>
+    /// Коллекция клиентов салона красоты
+    /// </summary>
     public List<Client> Clients { get; } = [
         new Client
         {
@@ -87,6 +93,9 @@ public class BeautySalonDataStore
         }
     ];
 
+    /// <summary>
+    /// Коллекция мастеров салона красоты
+    /// </summary>
     public List<Master> Masters { get; } = [
         new Master
         {
@@ -180,6 +189,9 @@ public class BeautySalonDataStore
         }
     ];
 
+    /// <summary>
+    /// Коллекция предоставляемых услуг
+    /// </summary>
     public List<Service> Services { get; } = [
         new Service
         {
@@ -262,9 +274,14 @@ public class BeautySalonDataStore
             Price = 500
         }
     ];
-
+    /// <summary>
+    /// Коллекция записей клиентов на приём к мастерам
+    /// </summary>
     public List<Appointment> Appointments { get; set; } = [];
 
+    /// <summary>
+    /// Инициализирует новый экземпляр хранилища и заполняет его начальным набором тестовых данных.
+    /// </summary>
     public BeautySalonDataStore()
     {
         Appointments = [

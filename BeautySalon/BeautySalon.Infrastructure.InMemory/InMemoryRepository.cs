@@ -1,23 +1,34 @@
-namespace BeautySalon.Infrastructure.InMemory;
-
 using BeautySalon.Domain;
 
+namespace BeautySalon.Infrastructure.InMemory;
+
 /// <summary>
-/// Обобщенный репозиторий для работы с сущностями в памяти
+/// Базовый обобщенный репозиторий для выполнения CRUD-операций
 /// </summary>
 public class InMemoryRepository<T> where T : class, IEntity
 {
     protected readonly List<T> _items;
 
+    /// <summary>
+    /// Инициализирует новый экземпляр базового репозитория переданным списком элементов
+    /// </summary>
     public InMemoryRepository(List<T> items)
     {
         _items = items;
     }
-
+    /// <summary>
+    /// Получает список всех сущностей
+    /// </summary>
     public virtual IList<T> GetAll() => _items;
 
+    /// <summary>
+    /// Получает сущность по её уникальному идентификатору
+    /// </summary>
     public virtual T? GetById(int id) => _items.FirstOrDefault(x => x.Id == id);
 
+    /// <summary>
+    /// Добавляет новую сущность в хранилище
+    /// </summary>
     public virtual T Add(T entity)
     {
         if (entity.Id == 0)
@@ -28,6 +39,9 @@ public class InMemoryRepository<T> where T : class, IEntity
         return entity;
     }
 
+    /// <summary>
+    /// Обновляет существующую сущность по её идентификатору
+    /// </summary>
     public virtual T Update(T entity, int id)
     {
         var index = _items.FindIndex(x => x.Id == id);
@@ -41,6 +55,9 @@ public class InMemoryRepository<T> where T : class, IEntity
         return entity;
     }
 
+    /// <summary>
+    /// Удаляет сущность из хранилища по её уникальному идентификатору
+    /// </summary>
     public virtual bool Delete(int id)
     {
         var item = GetById(id);

@@ -1,9 +1,12 @@
-namespace BeautySalon.Api.Controllers;
-
 using BeautySalon.Domain;
 using BeautySalon.Infrastructure.InMemory;
 using Microsoft.AspNetCore.Mvc;
 
+namespace BeautySalon.Api.Controllers;
+
+/// <summary>
+/// 
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class ServicesController(ServiceRepository serviceRepository) : ControllerBase
