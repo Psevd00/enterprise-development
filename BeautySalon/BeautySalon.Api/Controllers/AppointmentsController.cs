@@ -4,14 +4,23 @@ using BeautySalon.Domain;
 using BeautySalon.Infrastructure.InMemory;
 using Microsoft.AspNetCore.Mvc;
 
+/// <summary>
+/// Контроллер для управления записями клиентов.
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class AppointmentsController(AppointmentRepository appointmentRepository) : ControllerBase
 {
+    /// <summary>
+    /// Получает список всех записей
+    /// </summary>
     [HttpGet]
     public ActionResult<IEnumerable<Appointment>> GetAll() =>
         Ok(appointmentRepository.GetAll());
 
+    /// <summary>
+    /// Получает запись по идентификатору
+    /// </summary>
     [HttpGet("{id:int}")]
     public ActionResult<Appointment> GetById(int id)
     {
@@ -23,6 +32,9 @@ public class AppointmentsController(AppointmentRepository appointmentRepository)
         return Ok(appointment);
     }
 
+    /// <summary>
+    /// Добавляет новую запись
+    /// </summary>
     [HttpPost]
     public ActionResult<Appointment> Create([FromBody] Appointment appointment)
     {
@@ -35,6 +47,9 @@ public class AppointmentsController(AppointmentRepository appointmentRepository)
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    /// <summary>
+    /// Обновляет информацию о записи
+    /// </summary>
     [HttpPut("{id:int}")]
     public IActionResult Update(int id, [FromBody] Appointment appointment)
     {
@@ -49,6 +64,9 @@ public class AppointmentsController(AppointmentRepository appointmentRepository)
         }
     }
 
+    /// <summary>
+    /// Удаляет запись по идентификатору
+    /// </summary>
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {

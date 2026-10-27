@@ -4,14 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalon.Api.Controllers;
 
+/// <summary>
+/// Контроллер для управления клиентами
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class ClientsController(ClientRepository clientRepository) : ControllerBase
 {
+    /// <summary>
+    /// Получает список всех клиентов
+    /// </summary>
     [HttpGet]
     public ActionResult<IEnumerable<Client>> GetAll() =>
         Ok(clientRepository.GetAll());
 
+    /// <summary>
+    /// Получает клиента по идентификатору
+    /// </summary>
     [HttpGet("{id:int}")]
     public ActionResult<Client> GetById(int id)
     {
@@ -22,7 +31,10 @@ public class ClientsController(ClientRepository clientRepository) : ControllerBa
         }
         return Ok(client);
     }
-
+    
+    /// <summary>
+    /// Добавляет нового клиента
+    /// </summary>
     [HttpPost]
     public ActionResult<Client> Create([FromBody] Client client)
     {
@@ -35,6 +47,9 @@ public class ClientsController(ClientRepository clientRepository) : ControllerBa
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    /// <summary>
+    /// Обновляет информацию о клиенте по идентификатору
+    /// </summary>
     [HttpPut("{id:int}")]
     public IActionResult Update(int id, [FromBody] Client client)
     {
@@ -49,6 +64,9 @@ public class ClientsController(ClientRepository clientRepository) : ControllerBa
         }
     }
 
+    /// <summary>
+    /// Удаляет клиента по идентификатору
+    /// </summary>
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {

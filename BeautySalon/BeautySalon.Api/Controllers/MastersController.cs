@@ -4,14 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalon.Api.Controllers;
 
+/// <summary>
+/// Контроллер для управления мастерами
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class MastersController(MasterRepository masterRepository) : ControllerBase
 {
+    /// <summary>
+    /// Получает список всех мастеров
+    /// </summary>
     [HttpGet]
     public ActionResult<IEnumerable<Master>> GetAll() =>
         Ok(masterRepository.GetAll());
 
+    /// <summary>
+    /// Получает мастера по идентификатору
+    /// </summary>
     [HttpGet("{id:int}")]
     public ActionResult<Master> GetById(int id)
     {
@@ -23,6 +32,9 @@ public class MastersController(MasterRepository masterRepository) : ControllerBa
         return Ok(master);
     }
 
+    /// <summary>
+    /// Добавляет нового мастера
+    /// </summary>
     [HttpPost]
     public ActionResult<Master> Create([FromBody] Master master)
     {
@@ -35,6 +47,9 @@ public class MastersController(MasterRepository masterRepository) : ControllerBa
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    /// <summary>
+    /// Обновляет информацию о мастере
+    /// </summary>
     [HttpPut("{id:int}")]
     public IActionResult Update(int id, [FromBody] Master master)
     {
@@ -49,6 +64,9 @@ public class MastersController(MasterRepository masterRepository) : ControllerBa
         }
     }
 
+    /// <summary>
+    /// Удаляет мастера по идентификатору
+    /// </summary>
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
