@@ -1,9 +1,9 @@
-namespace BeautySalon.Api.Controllers;
-
 using System.ComponentModel.DataAnnotations;
 using BeautySalon.Contracts.Dto;
 using BeautySalon.Contracts.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+
+namespace BeautySalon.Api.Controllers;
 
 
 /// <summary>

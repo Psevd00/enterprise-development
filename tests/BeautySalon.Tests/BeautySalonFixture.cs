@@ -1,6 +1,7 @@
+using BeautySalon.Domain;
+
 namespace BeautySalon.Tests;
 
-using BeautySalon.Domain;
 
 public class BeautySalonFixture
 {

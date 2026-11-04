@@ -1,9 +1,10 @@
-namespace BeautySalon.Api.Controllers;
-
 using BeautySalon.Contracts.Dto;
 using BeautySalon.Contracts.Exceptions;
 using BeautySalon.Contracts.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+
+namespace BeautySalon.Api.Controllers;
+
 
 /// <summary>
 /// Базовый контроллер с CRUD-операциями
