@@ -1,4 +1,4 @@
-namespace BeautySalon.Domain;
+namespace BeautySalon.Domain.Entities;
 
 /// <summary>
 /// Класс данных для клиента салона красоты

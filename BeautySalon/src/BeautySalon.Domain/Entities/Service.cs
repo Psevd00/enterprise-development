@@ -1,4 +1,7 @@
-namespace BeautySalon.Domain;
+using BeautySalon.Domain.Enums;
+using BeautySalon.Domain.Interfaces;
+
+namespace BeautySalon.Domain.Entities;
 
 /// <summary>
 /// Класс услуг салона красоты

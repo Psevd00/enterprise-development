@@ -1,4 +1,6 @@
-namespace BeautySalon.Domain;
+using BeautySalon.Domain.Interfaces;
+
+namespace BeautySalon.Domain.Entities;
 
 /// <summary>
 /// Класс данных для записи на прием в салон красоты

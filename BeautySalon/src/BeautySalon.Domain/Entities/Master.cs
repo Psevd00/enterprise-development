@@ -1,4 +1,6 @@
-namespace BeautySalon.Domain;
+using BeautySalon.Domain.Enums;
+
+namespace BeautySalon.Domain.Entities;
 
 /// <summary>
 /// Класс данных для мастера салона красоты
