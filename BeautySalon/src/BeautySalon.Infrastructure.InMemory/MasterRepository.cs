@@ -1,11 +1,10 @@
-using BeautySalon.Domain;
+using BeautySalon.Domain.Entities;
+using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Определяет операции доступа к данным мастерам
+/// Репозиторий мастеров
 /// </summary>
-public class MasterRepository : InMemoryRepository<Master>
-{
-    public MasterRepository(BeautySalonDataStore dataStore) : base(dataStore.Masters) { }
-}
+public class MasterRepository(BeautySalonDataStore dataStore)
+    : InMemoryRepository<Master>(dataStore.Masters), IMasterRepository;

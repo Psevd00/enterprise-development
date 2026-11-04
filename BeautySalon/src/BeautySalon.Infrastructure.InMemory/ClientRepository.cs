@@ -1,11 +1,10 @@
-using BeautySalon.Domain;
+using BeautySalon.Domain.Entities;
+using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Репозиторий для управления данными клиентов
+/// Репозиторий клиентов
 /// </summary>
-public class ClientRepository : InMemoryRepository<Client>
-{
-    public ClientRepository(BeautySalonDataStore dataStore) : base(dataStore.Clients) { }
-}
+public class ClientRepository(BeautySalonDataStore dataStore)
+    : InMemoryRepository<Client>(dataStore.Clients), IClientRepository;

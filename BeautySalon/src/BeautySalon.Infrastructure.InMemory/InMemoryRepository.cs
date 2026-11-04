@@ -1,71 +1,70 @@
-using BeautySalon.Domain;
+using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Базовый обобщенный репозиторий для выполнения CRUD-операций
+/// Базовый репозиторий поверх коллекции в памяти
 /// </summary>
-public class InMemoryRepository<T> where T : class, IEntity
+public abstract class InMemoryRepository<T>(List<T> items) : IRepository<T>
+    where T : class, IEntity
 {
-    protected readonly List<T> _items;
+    private readonly object _sync = new();
 
-    /// <summary>
-    /// Инициализирует новый экземпляр базового репозитория переданным списком элементов
-    /// </summary>
-    public InMemoryRepository(List<T> items)
+    public Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        _items = items;
-    }
-    /// <summary>
-    /// Получает список всех сущностей
-    /// </summary>
-    public virtual IList<T> GetAll() => _items;
-
-    /// <summary>
-    /// Получает сущность по её уникальному идентификатору
-    /// </summary>
-    public virtual T? GetById(int id) => _items.FirstOrDefault(x => x.Id == id);
-
-    /// <summary>
-    /// Добавляет новую сущность в хранилище
-    /// </summary>
-    public virtual T Add(T entity)
-    {
-        if (entity.Id == 0)
+        lock (_sync)
         {
-            entity.Id = _items.Count != 0 ? _items.Max(x => x.Id) + 1 : 1;
+            return Task.FromResult<IReadOnlyList<T>>(items.ToList());
         }
-        _items.Add(entity);
-        return entity;
     }
 
-    /// <summary>
-    /// Обновляет существующую сущность по её идентификатору
-    /// </summary>
-    public virtual T Update(T entity, int id)
+    public Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        var index = _items.FindIndex(x => x.Id == id);
-        if (index == -1)
+        lock (_sync)
         {
-            throw new KeyNotFoundException($"Сущность с идентификатором {id} не найдена.");
+            return Task.FromResult(items.FirstOrDefault(x => x.Id == id));
         }
-
-        entity.Id = id;
-        _items[index] = entity;
-        return entity;
     }
 
-    /// <summary>
-    /// Удаляет сущность из хранилища по её уникальному идентификатору
-    /// </summary>
-    public virtual bool Delete(int id)
+    public Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
-        var item = GetById(id);
-        if (item is null)
+        lock (_sync)
         {
-            return false;
-        }
+            if (entity.Id == 0)
+            {
+                entity.Id = items.Count != 0 ? items.Max(x => x.Id) + 1 : 1;
+            }
+            else if (items.Any(x => x.Id == entity.Id))
+            {
+                throw new InvalidOperationException($"Сущность с идентификатором {entity.Id} уже существует.");
+            }
 
-        return _items.Remove(item);
+            items.Add(entity);
+            return Task.FromResult(entity);
+        }
+    }
+
+    public Task<bool> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    {
+        lock (_sync)
+        {
+            var index = items.FindIndex(x => x.Id == entity.Id);
+            if (index == -1)
+            {
+                return Task.FromResult(false);
+            }
+
+            items[index] = entity;
+            return Task.FromResult(true);
+        }
+    }
+
+    public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        lock (_sync)
+        {
+            var item = items.FirstOrDefault(x => x.Id == id);
+            return Task.FromResult(item is not null && items.Remove(item));
+        }
     }
 }

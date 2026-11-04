@@ -1,11 +1,10 @@
-using BeautySalon.Domain;
+using BeautySalon.Domain.Entities;
+using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Определяет операции доступа к данным записям
+/// Репозиторий записей на приём
 /// </summary>
-public class AppointmentRepository : InMemoryRepository<Appointment>
-{
-    public AppointmentRepository(BeautySalonDataStore dataStore) : base(dataStore.Appointments) { }
-}
+public class AppointmentRepository(BeautySalonDataStore dataStore)
+    : InMemoryRepository<Appointment>(dataStore.Appointments), IAppointmentRepository;
