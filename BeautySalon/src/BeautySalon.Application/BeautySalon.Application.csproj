@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeautySalon.Domain\BeautySalon.Domain.csproj" />
+    <ProjectReference Include="..\BeautySalon.Contracts\BeautySalon.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
