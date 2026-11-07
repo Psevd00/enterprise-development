@@ -1,4 +1,4 @@
-namespace BeautySalon.Domain;
+namespace BeautySalon.Domain.Enums;
 
 /// <summary>
 /// Класс для категорий услуг салона красоты
