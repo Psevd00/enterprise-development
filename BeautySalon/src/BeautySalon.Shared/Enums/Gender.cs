@@ -1,7 +1,7 @@
-namespace BeautySalon.Domain.Enums;
+namespace BeautySalon.Shared.Enums;
 
 /// <summary>
-/// Класс данных для пола человека
+/// Пол человека
 /// </summary>
 public enum Gender
 {
@@ -9,6 +9,7 @@ public enum Gender
     /// Мужской
     /// </summary>
     Male = 1,
+
     /// <summary>
     /// Женский
     /// </summary>

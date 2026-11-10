@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeautySalon.Domain\BeautySalon.Domain.csproj" />
+    <!-- Только для enum-ов (Gender, Category, Specialization); на Domain Contracts больше не ссылается -->
+    <ProjectReference Include="..\BeautySalon.Shared\BeautySalon.Shared.csproj" />
   </ItemGroup>
 
 </Project>
