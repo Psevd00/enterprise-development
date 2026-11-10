@@ -4,7 +4,7 @@ using BeautySalon.Domain.Interfaces;
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Репозиторий записей на приём
+/// In-memory репозиторий записей на приём
 /// </summary>
 public class AppointmentRepository(BeautySalonDataStore dataStore)
     : InMemoryRepository<Appointment>(dataStore.Appointments), IAppointmentRepository;

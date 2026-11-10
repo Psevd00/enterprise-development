@@ -4,7 +4,7 @@ using BeautySalon.Domain.Seeds;
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Хранилище данных салона красоты в памяти, в начале заполняется тестовыми данными
+/// Хранилище данных салона красоты в памяти. Первоначально заполняется тестовыми данными.
 /// </summary>
 public class BeautySalonDataStore
 {

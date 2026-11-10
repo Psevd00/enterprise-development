@@ -3,32 +3,36 @@ using BeautySalon.Domain.Interfaces;
 namespace BeautySalon.Infrastructure.InMemory;
 
 /// <summary>
-/// Базовый репозиторий поверх коллекции в памяти
+/// Базовый репозиторий поверх коллекции в памяти. Потокобезопасен.
 /// </summary>
-public abstract class InMemoryRepository<T>(List<T> items) : IRepository<T>
-    where T : class, IEntity
+/// <typeparam name="TEntity">Тип доменной сущности</typeparam>
+public abstract class InMemoryRepository<TEntity>(List<TEntity> items) : IRepository<TEntity>
+    where TEntity : class, IEntity
 {
-    private readonly object _sync = new();
+    private readonly Lock _lock = new();
 
-    public Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        lock (_sync)
+        lock (_lock)
         {
-            return Task.FromResult<IReadOnlyList<T>>(items.ToList());
+            return Task.FromResult<IReadOnlyList<TEntity>>([.. items]);
         }
     }
 
-    public Task<T?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public Task<TEntity?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        lock (_sync)
+        lock (_lock)
         {
             return Task.FromResult(items.FirstOrDefault(x => x.Id == id));
         }
     }
 
-    public Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        lock (_sync)
+        lock (_lock)
         {
             if (entity.Id == 0)
             {
@@ -44,9 +48,10 @@ public abstract class InMemoryRepository<T>(List<T> items) : IRepository<T>
         }
     }
 
-    public Task<bool> UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        lock (_sync)
+        lock (_lock)
         {
             var index = items.FindIndex(x => x.Id == entity.Id);
             if (index == -1)
@@ -59,9 +64,10 @@ public abstract class InMemoryRepository<T>(List<T> items) : IRepository<T>
         }
     }
 
+    /// <inheritdoc />
     public Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
-        lock (_sync)
+        lock (_lock)
         {
             var item = items.FirstOrDefault(x => x.Id == id);
             return Task.FromResult(item is not null && items.Remove(item));
