@@ -1,10 +1,10 @@
-using BeautySalon.Domain.Enums;
+using BeautySalon.Shared.Enums;
 using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Domain.Entities;
 
 /// <summary>
-/// Класс данных для представления человека
+/// Базовый класс для человека (клиент, мастер)
 /// </summary>
 public abstract class Person : IEntity
 {

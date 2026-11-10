@@ -1,10 +1,10 @@
-using BeautySalon.Domain.Enums;
+using BeautySalon.Shared.Enums;
 using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Domain.Entities;
 
 /// <summary>
-/// Класс услуг салона красоты
+/// Услуга салона красоты
 /// </summary>
 public class Service : IEntity
 {

@@ -3,7 +3,7 @@ using BeautySalon.Domain.Interfaces;
 namespace BeautySalon.Domain.Entities;
 
 /// <summary>
-/// Класс данных для записи на прием в салон красоты
+/// Запись клиента на приём к мастеру
 /// </summary>
 public class Appointment : IEntity
 {
@@ -28,7 +28,7 @@ public class Appointment : IEntity
     public required Service Service { get; set; }
 
     /// <summary>
-    /// Дата и время приема
+    /// Дата и время приёма
     /// </summary>
     public DateTime DateTime { get; set; }
 

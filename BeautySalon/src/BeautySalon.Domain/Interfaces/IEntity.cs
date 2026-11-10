@@ -5,8 +5,8 @@ namespace BeautySalon.Domain.Interfaces;
 /// </summary>
 public interface IEntity
 {
-	/// <summary>
-	/// Уникальный идентификатор сущности
-	/// </summary>
-	public int Id { get; set; }
+    /// <summary>
+    /// Уникальный идентификатор сущности
+    /// </summary>
+    public int Id { get; set; }
 }

@@ -1,22 +1,24 @@
-using BeautySalon.Domain.Enums;
+using BeautySalon.Shared.Enums;
 
 namespace BeautySalon.Domain.Entities;
 
 /// <summary>
-/// Класс данных для мастера салона красоты
+/// Мастер салона красоты
 /// </summary>
-public class Master : Person 
+public class Master : Person
 {
     /// <summary>
     /// Номер паспорта
     /// </summary>
     public required string PassportNumber { get; set; }
+
     /// <summary>
     /// Специализация
     /// </summary>
     public required Specialization Specialization { get; set; }
+
     /// <summary>
-    /// Опыт работы
+    /// Стаж работы (лет)
     /// </summary>
     public int WorkExperience { get; set; }
 }

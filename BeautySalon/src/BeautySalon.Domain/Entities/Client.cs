@@ -1,14 +1,15 @@
 namespace BeautySalon.Domain.Entities;
 
 /// <summary>
-/// Класс данных для клиента салона красоты
+/// Клиент салона красоты
 /// </summary>
-public class Client : Person 
+public class Client : Person
 {
     /// <summary>
     /// Номер телефона
     /// </summary>
     public required string PhoneNumber { get; set; }
+
     /// <summary>
     /// Дата рождения
     /// </summary>
