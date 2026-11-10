@@ -32,14 +32,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-/// <summary>
-/// Точка входа API салона красоты
-/// </summary>
-public partial class Program
-{
-}

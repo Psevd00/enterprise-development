@@ -23,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeautySalon.Domain\BeautySalon.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BeautySalon.Domain\BeautySalon.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BeautySalon.Contracts\BeautySalon.Contracts.csproj" />
+    <ProjectReference Include="..\..\src\BeautySalon.Application\BeautySalon.Application.csproj" />
+    <ProjectReference Include="..\..\src\BeautySalon.Infrastructure.InMemory\BeautySalon.Infrastructure.InMemory.csproj" />
   </ItemGroup>
 
 </Project>
