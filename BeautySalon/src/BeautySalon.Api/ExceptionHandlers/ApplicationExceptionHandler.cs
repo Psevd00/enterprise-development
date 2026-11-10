@@ -5,12 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BeautySalon.Api.ExceptionHandlers;
 
 /// <summary>
-/// Превращает исключения слоя Application в HTTP-ответы, чтобы контроллеры обходились без try/catch.
 /// Тексты внутренних ошибок клиенту не отдаются: неизвестные исключения обрабатывает стандартный обработчик (ответ 500).
 /// </summary>
 public class ApplicationExceptionHandler(ILogger<ApplicationExceptionHandler> logger) : IExceptionHandler
 {
-    /// <inheritdoc />
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
@@ -21,7 +19,6 @@ public class ApplicationExceptionHandler(ILogger<ApplicationExceptionHandler> lo
             _ => (0, string.Empty)
         };
 
-        // Неизвестное исключение: пропускаем дальше, его залогирует и превратит в 500 стандартный механизм
         if (status == 0)
         {
             return false;

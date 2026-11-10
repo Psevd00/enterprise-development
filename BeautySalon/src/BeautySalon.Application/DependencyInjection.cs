@@ -12,8 +12,6 @@ public static class DependencyInjection
     /// <summary>
     /// Регистрирует сервисы управления сущностями и сервис аналитики
     /// </summary>
-    /// <param name="services">Коллекция сервисов</param>
-    /// <returns>Та же коллекция для цепочки вызовов</returns>
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IClientService, ClientService>();

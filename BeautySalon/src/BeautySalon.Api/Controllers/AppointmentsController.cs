@@ -7,7 +7,6 @@ namespace BeautySalon.Api.Controllers;
 /// <summary>
 /// Управление записями на приём
 /// </summary>
-/// <param name="service">Сервис управления записями на приём</param>
 [ApiController]
 [Route("[controller]")]
 [Produces("application/json")]
@@ -16,7 +15,6 @@ public class AppointmentsController(IAppointmentService service) : ControllerBas
     /// <summary>
     /// Получить список всех записей на приём
     /// </summary>
-    /// <response code="200">Список</response>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<AppointmentDto>>> GetAll(CancellationToken cancellationToken) =>

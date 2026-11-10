@@ -67,10 +67,4 @@ CRUD для `/clients`, `/masters`, `/services`, `/appointments`:
 
 ## Тесты
 
-```sh
-dotnet test --solution BeautySalon.slnx --configuration Release
-```
-
-Тесты написаны на xUnit v3. `BeautySalon.Tests` проверяет сервисы и аналитику на реальных in-memory репозиториях. `BeautySalon.Api.Tests` поднимает API через `WebApplicationFactory` и проверяет CRUD, валидацию, коды ошибок и аналитику по HTTP; каждый тест получает своё хранилище с исходными данными.
-
 Тесты запускаются в GitHub Actions при каждом push и pull request (`.github/workflows/tests.yml`).
