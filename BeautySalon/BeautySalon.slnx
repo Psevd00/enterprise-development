@@ -10,6 +10,5 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/BeautySalon.Tests/BeautySalon.Tests.csproj" />
-    <Project Path="tests/BeautySalon.Api.Tests/BeautySalon.Api.Tests.csproj" />
   </Folder>
 </Solution>
