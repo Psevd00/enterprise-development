@@ -1,7 +1,7 @@
+using BeautySalon.Application.Exceptions;
 using BeautySalon.Application.Mapping;
 using BeautySalon.Contracts.Dto;
 using BeautySalon.Contracts.Interfaces;
-using BeautySalon.Domain.Entities;
 using BeautySalon.Domain.Interfaces;
 
 namespace BeautySalon.Application.Services;
@@ -9,26 +9,47 @@ namespace BeautySalon.Application.Services;
 /// <summary>
 /// Сервис управления клиентами
 /// </summary>
-public class ClientService(IClientRepository repository)
-    : CrudService<Client, ClientDto, ClientEditDto>(repository), IClientService
+public class ClientService(IClientRepository repository) : IClientService
 {
-    protected override ClientDto ToDto(Client entity) => entity.ToDto();
-
-    protected override Task<Client> BuildAsync(ClientEditDto dto, CancellationToken cancellationToken) =>
-        Task.FromResult(new Client
-        {
-            FullName = dto.FullName,
-            Gender = dto.Gender,
-            BirthDate = dto.BirthDate,
-            PhoneNumber = dto.PhoneNumber
-        });
-
-    protected override Task ApplyAsync(Client entity, ClientEditDto dto, CancellationToken cancellationToken)
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<ClientDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        entity.FullName = dto.FullName;
-        entity.Gender = dto.Gender;
-        entity.BirthDate = dto.BirthDate;
-        entity.PhoneNumber = dto.PhoneNumber;
-        return Task.CompletedTask;
+        var entities = await repository.GetAllAsync(cancellationToken);
+        return [.. entities.Select(e => e.ToDto())];
+    }
+
+    /// <inheritdoc />
+    public async Task<ClientDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var entity = await repository.GetByIdAsync(id, cancellationToken)
+            ?? throw new NotFoundException("Клиент", id);
+        return entity.ToDto();
+    }
+
+    /// <inheritdoc />
+    public async Task<ClientDto> CreateAsync(ClientEditDto dto, CancellationToken cancellationToken = default)
+    {
+        var created = await repository.AddAsync(dto.ToEntity(), cancellationToken);
+        return created.ToDto();
+    }
+
+    /// <inheritdoc />
+    public async Task<ClientDto> UpdateAsync(int id, ClientEditDto dto, CancellationToken cancellationToken = default)
+    {
+        var entity = await repository.GetByIdAsync(id, cancellationToken)
+            ?? throw new NotFoundException("Клиент", id);
+
+        entity.UpdateEntity(dto);
+        await repository.UpdateAsync(entity, cancellationToken);
+        return entity.ToDto();
+    }
+
+    /// <inheritdoc />
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
+    {
+        if (!await repository.DeleteAsync(id, cancellationToken))
+        {
+            throw new NotFoundException("Клиент", id);
+        }
     }
 }
