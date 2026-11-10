@@ -10,30 +10,37 @@ public interface IAnalyticsService
     /// <summary>
     /// Мастера со стажем не менее указанного
     /// </summary>
-    Task<IReadOnlyList<MasterDto>> GetExperiencedMastersAsync(
+    /// <param name="minExperienceYears">Минимальный стаж в годах</param>
+    public Task<IReadOnlyList<MasterDto>> GetExperiencedMastersAsync(
         int minExperienceYears = 5, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Свободные окна мастера на выбранную дату (рабочий день 09 до 18)
+    /// Свободные окна мастера на выбранную дату (рабочий день 09:00–18:00)
     /// </summary>
-    Task<IReadOnlyList<TimeSlotDto>?> GetFreeSlotsAsync(
+    /// <param name="masterId">Идентификатор мастера</param>
+    /// <param name="date">Дата</param>
+    /// <returns>Список свободных окон. Если мастера нет, сервис выбрасывает исключение «не найдено»</returns>
+    public Task<IReadOnlyList<TimeSlotDto>> GetFreeSlotsAsync(
         int masterId, DateOnly date, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Топ наиболее популярных услуг по количеству записей
     /// </summary>
-    Task<IReadOnlyList<PopularServiceDto>> GetPopularServicesAsync(
+    /// <param name="top">Сколько услуг вернуть</param>
+    public Task<IReadOnlyList<PopularServiceDto>> GetPopularServicesAsync(
         int top = 5, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Клиенты, записавшиеся более одного раза в выбранном месяце
     /// </summary>
-    Task<IReadOnlyList<RepeatClientDto>> GetRepeatClientsAsync(
+    /// <param name="year">Год</param>
+    /// <param name="month">Месяц (1–12)</param>
+    public Task<IReadOnlyList<RepeatClientDto>> GetRepeatClientsAsync(
         int year, int month, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Клиенты, записанные к нескольким мастерам, упорядоченные по дате рождения
     /// </summary>
-    Task<IReadOnlyList<ClientDto>> GetClientsWithMultipleMastersAsync(
+    public Task<IReadOnlyList<ClientDto>> GetClientsWithMultipleMastersAsync(
         CancellationToken cancellationToken = default);
 }

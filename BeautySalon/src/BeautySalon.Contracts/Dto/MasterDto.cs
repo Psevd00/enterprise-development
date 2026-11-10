@@ -1,39 +1,21 @@
-using BeautySalon.Domain.Enums;
+using BeautySalon.Contracts.Interfaces;
+using BeautySalon.Shared.Enums;
 
 namespace BeautySalon.Contracts.Dto;
 
 /// <summary>
 /// Мастер салона (для чтения)
 /// </summary>
-public class MasterDto : IHasId
-{
-    /// <summary>
-    /// Уникальный идентификатор
-    /// </summary>
-    public int Id { get; set; }
-
-    /// <summary>
-    /// Полное имя
-    /// </summary>
-    public string FullName { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Пол
-    /// </summary>
-    public Gender Gender { get; set; }
-
-    /// <summary>
-    /// Номер паспорта
-    /// </summary>
-    public string PassportNumber { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Специализация
-    /// </summary>
-    public Specialization Specialization { get; set; }
-
-    /// <summary>
-    /// Стаж работы (лет)
-    /// </summary>
-    public int WorkExperience { get; set; }
-}
+/// <param name="Id">Уникальный идентификатор</param>
+/// <param name="FullName">Полное имя</param>
+/// <param name="Gender">Пол</param>
+/// <param name="PassportNumber">Номер паспорта</param>
+/// <param name="Specialization">Специализация</param>
+/// <param name="WorkExperience">Стаж работы (лет)</param>
+public record MasterDto(
+    int Id,
+    string FullName,
+    Gender Gender,
+    string PassportNumber,
+    Specialization Specialization,
+    int WorkExperience) : IHasId;

@@ -1,42 +1,40 @@
 using System.ComponentModel.DataAnnotations;
-using BeautySalon.Domain.Enums;
+using BeautySalon.Shared.Enums;
 
 namespace BeautySalon.Contracts.Dto;
 
 /// <summary>
 /// Мастер салона (для создания и изменения)
 /// </summary>
-public class MasterEditDto
+public record MasterEditDto
 {
     /// <summary>
     /// Полное имя
     /// </summary>
-    [Required]
-    [MaxLength(200)]
-    public string FullName { get; set; } = string.Empty;
+    [Required, MaxLength(200)]
+    public required string FullName { get; init; }
 
     /// <summary>
     /// Пол
     /// </summary>
-    [EnumDataType(typeof(Gender))]
-    public Gender Gender { get; set; }
+    [Required, EnumDataType(typeof(Gender))]
+    public Gender? Gender { get; init; }
 
     /// <summary>
     /// Номер паспорта в формате «1234 567890»
     /// </summary>
-    [Required]
-    [RegularExpression(@"^\d{4} \d{6}$", ErrorMessage = "Номер паспорта должен иметь формат «1234 567890»")]
-    public string PassportNumber { get; set; } = string.Empty;
+    [Required, RegularExpression(@"^\d{4} \d{6}$", ErrorMessage = "Номер паспорта должен иметь формат «1234 567890»")]
+    public required string PassportNumber { get; init; }
 
     /// <summary>
     /// Специализация
     /// </summary>
-    [EnumDataType(typeof(Specialization))]
-    public Specialization Specialization { get; set; }
+    [Required, EnumDataType(typeof(Specialization))]
+    public Specialization? Specialization { get; init; }
 
     /// <summary>
     /// Стаж работы (лет)
     /// </summary>
-    [Range(0, 80)]
-    public int WorkExperience { get; set; }
+    [Required, Range(0, 80)]
+    public int? WorkExperience { get; init; }
 }

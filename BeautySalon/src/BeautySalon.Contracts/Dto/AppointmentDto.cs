@@ -1,52 +1,26 @@
+using BeautySalon.Contracts.Interfaces;
+
 namespace BeautySalon.Contracts.Dto;
 
 /// <summary>
 /// Запись на приём (для чтения)
 /// </summary>
-public class AppointmentDto : IHasId
-{
-    /// <summary>
-    /// Уникальный идентификатор
-    /// </summary>
-    public int Id { get; set; }
-
-    /// <summary>
-    /// Идентификатор клиента
-    /// </summary>
-    public int ClientId { get; set; }
-
-    /// <summary>
-    /// Полное имя клиента
-    /// </summary>
-    public string ClientFullName { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Идентификатор мастера
-    /// </summary>
-    public int MasterId { get; set; }
-
-    /// <summary>
-    /// Полное имя мастера
-    /// </summary>
-    public string MasterFullName { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Идентификатор услуги
-    /// </summary>
-    public int ServiceId { get; set; }
-
-    /// <summary>
-    /// Название услуги
-    /// </summary>
-    public string ServiceName { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Дата и время приёма
-    /// </summary>
-    public DateTime DateTime { get; set; }
-
-    /// <summary>
-    /// Признак постоянного клиента
-    /// </summary>
-    public bool IsRegularClient { get; set; }
-}
+/// <param name="Id">Уникальный идентификатор</param>
+/// <param name="ClientId">Идентификатор клиента</param>
+/// <param name="ClientFullName">Полное имя клиента</param>
+/// <param name="MasterId">Идентификатор мастера</param>
+/// <param name="MasterFullName">Полное имя мастера</param>
+/// <param name="ServiceId">Идентификатор услуги</param>
+/// <param name="ServiceName">Название услуги</param>
+/// <param name="DateTime">Дата и время приёма</param>
+/// <param name="IsRegularClient">Признак постоянного клиента</param>
+public record AppointmentDto(
+    int Id,
+    int ClientId,
+    string ClientFullName,
+    int MasterId,
+    string MasterFullName,
+    int ServiceId,
+    string ServiceName,
+    DateTime DateTime,
+    bool IsRegularClient) : IHasId;
