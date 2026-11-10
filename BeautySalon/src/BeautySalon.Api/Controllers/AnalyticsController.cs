@@ -5,131 +5,84 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BeautySalon.Api.Controllers;
 
-
 /// <summary>
 /// Аналитические запросы по данным салона красоты
 /// </summary>
+/// <param name="service">Сервис аналитики</param>
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 [Produces("application/json")]
-public class AnalyticsController(IAnalyticsService service, ILogger<AnalyticsController> logger) : ControllerBase
+public class AnalyticsController(IAnalyticsService service) : ControllerBase
 {
     /// <summary>
     /// Мастера со стажем не менее указанного
     /// </summary>
+    /// <param name="minExperience">Минимальный стаж в годах (по умолчанию 5)</param>
+    /// <response code="200">Список мастеров</response>
+    /// <response code="400">Некорректные параметры</response>
     [HttpGet("experienced-masters")]
     [ProducesResponseType<IReadOnlyList<MasterDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IReadOnlyList<MasterDto>>> GetExperiencedMasters(
         [FromQuery, Range(0, 80)] int minExperience = 5,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return Ok(await service.GetExperiencedMastersAsync(minExperience, cancellationToken));
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            return Failure(ex, nameof(GetExperiencedMasters));
-        }
-    }
+        CancellationToken cancellationToken = default) =>
+        Ok(await service.GetExperiencedMastersAsync(minExperience, cancellationToken));
 
     /// <summary>
     /// Свободные окна мастера на выбранную дату (рабочий день 09:00–18:00)
     /// </summary>
+    /// <param name="masterId">Идентификатор мастера</param>
+    /// <param name="date">Дата в формате ГГГГ-ММ-ДД</param>
+    /// <response code="200">Список свободных окон</response>
+    /// <response code="400">Некорректные параметры</response>
+    /// <response code="404">Мастер не найден</response>
     [HttpGet("masters/{masterId:int}/free-slots")]
     [ProducesResponseType<IReadOnlyList<TimeSlotDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IReadOnlyList<TimeSlotDto>>> GetFreeSlots(
         int masterId,
         [FromQuery, Required] DateOnly? date,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            var slots = await service.GetFreeSlotsAsync(masterId, date!.Value, cancellationToken);
-            if (slots is null)
-            {
-                logger.LogInformation("Мастер с идентификатором {MasterId} не найден", masterId);
-                return Problem(statusCode: StatusCodes.Status404NotFound, title: "Мастер не найден");
-            }
-
-            return Ok(slots);
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            return Failure(ex, nameof(GetFreeSlots));
-        }
-    }
+        CancellationToken cancellationToken = default) =>
+        Ok(await service.GetFreeSlotsAsync(masterId, date!.Value, cancellationToken));
 
     /// <summary>
     /// Топ наиболее популярных услуг по количеству записей
     /// </summary>
+    /// <param name="top">Сколько услуг вернуть (по умолчанию 5)</param>
+    /// <response code="200">Список услуг с количеством записей</response>
+    /// <response code="400">Некорректные параметры</response>
     [HttpGet("popular-services")]
     [ProducesResponseType<IReadOnlyList<PopularServiceDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IReadOnlyList<PopularServiceDto>>> GetPopularServices(
         [FromQuery, Range(1, 100)] int top = 5,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return Ok(await service.GetPopularServicesAsync(top, cancellationToken));
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            return Failure(ex, nameof(GetPopularServices));
-        }
-    }
+        CancellationToken cancellationToken = default) =>
+        Ok(await service.GetPopularServicesAsync(top, cancellationToken));
 
     /// <summary>
     /// Клиенты, записавшиеся более одного раза в выбранном месяце
     /// </summary>
+    /// <param name="year">Год</param>
+    /// <param name="month">Месяц (1–12)</param>
+    /// <response code="200">Клиенты с количеством записей</response>
+    /// <response code="400">Некорректные параметры</response>
     [HttpGet("repeat-clients")]
     [ProducesResponseType<IReadOnlyList<RepeatClientDto>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IReadOnlyList<RepeatClientDto>>> GetRepeatClients(
         [FromQuery, Range(1, 9999)] int year,
         [FromQuery, Range(1, 12)] int month,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return Ok(await service.GetRepeatClientsAsync(year, month, cancellationToken));
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            return Failure(ex, nameof(GetRepeatClients));
-        }
-    }
+        CancellationToken cancellationToken = default) =>
+        Ok(await service.GetRepeatClientsAsync(year, month, cancellationToken));
 
     /// <summary>
     /// Клиенты, записанные к нескольким мастерам, упорядоченные по дате рождения
     /// </summary>
+    /// <response code="200">Список клиентов</response>
     [HttpGet("clients-with-multiple-masters")]
     [ProducesResponseType<IReadOnlyList<ClientDto>>(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClientsWithMultipleMasters(
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return Ok(await service.GetClientsWithMultipleMastersAsync(cancellationToken));
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException)
-        {
-            return Failure(ex, nameof(GetClientsWithMultipleMasters));
-        }
-    }
-
-    private ObjectResult Failure(Exception ex, string operation)
-    {
-        logger.LogError(ex, "Операция {Operation} завершилась ошибкой", operation);
-        return Problem(statusCode: StatusCodes.Status500InternalServerError, title: "Внутренняя ошибка сервера");
-    }
+        CancellationToken cancellationToken = default) =>
+        Ok(await service.GetClientsWithMultipleMastersAsync(cancellationToken));
 }
